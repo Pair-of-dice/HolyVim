@@ -307,6 +307,7 @@ vim.lsp.config("markdown_oxide", {
 --}}}
 --Omnisharp {{{
 vim.lsp.config("omnisharp", {
+	use_mono = true,
 	workspace = {
 		workspaceFolders = false,
 	},
@@ -321,8 +322,8 @@ vim.lsp.config("omnisharp", {
 		"--languageserver",
 	},
 	filetypes = { "cs", "vb" },
+	root_markers = { ".csproj", ".git", ".sln", "omnisharp.json", "function.json" },
 	init_options = {},
-	root_markers = { ".sln", ".csproj", "omnisharp.json", "function.json" },
 	settings = {
 		FormattingOptions = {
 			EnableEditorConfigSupport = true,
@@ -666,11 +667,27 @@ require("lualine").setup({
 })
 --}}}
 -- Telescope config and setup{{{
-local telescopeBuiltin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>tf", telescopeBuiltin.find_files, { desc = "Telescope find files" })
-vim.keymap.set("n", "<leader>tg", telescopeBuiltin.live_grep, { desc = "Telescope live grep" })
-vim.keymap.set("n", "<leader>tb", telescopeBuiltin.buffers, { desc = "Telescope buffers" })
-vim.keymap.set("n", "<leader>th", telescopeBuiltin.help_tags, { desc = "Telescope help tags" })
+local builtin = require("telescope.builtin")
+
+local telescope = require("telescope")
+
+vim.keymap.set("n", "<leader>tf", builtin.find_files,{ desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>tg", builtin.live_grep, { desc = "Telescope live grep" })
+vim.keymap.set("n", "<leader>tb", builtin.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>th", builtin.help_tags, { desc = "Telescope help tags" })
+
+telescope.setup({  defaults = {
+    -- ...
+  },
+  pickers = {
+    find_files = {
+      theme = "ivy",
+      hidden = "true",
+    }
+  },
+  extensions = {
+    -- ...
+  }})
 --}}}
 -- Treesitter config and setup{{{
 require("nvim-treesitter.configs").setup({
@@ -720,7 +737,7 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		cpp = { "clang-format" },
-		cs = { "clang-format"},
+		cs = { "clang-format" },
 		c = { "clang-format" },
 		java = { "clang-format" },
 		css = { "biome", "format" },
