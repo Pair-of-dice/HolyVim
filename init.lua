@@ -913,13 +913,13 @@ require("conform").setup({
 --}}}
 --Luasnip configuration{{{
 local ls = require("luasnip")
-vim.keymap.set({ "i" }, "<C-p>", function()
+vim.keymap.set({ "i" }, "<C-K>", function()
 	ls.expand()
 end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-k>", function()
+vim.keymap.set({ "i", "s" }, "<C-U>", function()
 	ls.jump(1)
 end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-j>", function()
+vim.keymap.set({ "i", "s" }, "<C-J>", function()
 	ls.jump(-1)
 end, { silent = true })
 
