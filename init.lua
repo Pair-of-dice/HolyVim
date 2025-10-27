@@ -131,64 +131,19 @@ vim.api.nvim_create_user_command("Javarun", function()
 	vim.cmd("terminal java " .. filename)
 end, { desc = "Run the current Java buffer" })
 --}}}
---Custom keybinds{{{
---The bindings for Telescope and Ranger aren't here they are in the Telescope configuration as they use require or other functions for
---their keybinds.
-vim.keymap.set({ "i", "n" }, "<C-f>", function()
-	vim.cmd("Telescope find_files")
-end)
-vim.keymap.set({ "i", "n" }, "<C-p>", function()
-	vim.cmd("tabprevious")
-end)
-vim.keymap.set({ "i", "n" }, "<C-n>", function()
-	vim.cmd("tabnext")
-end)
-vim.keymap.set({ "i", "n" }, "<C-A-t>", function()
-	vim.cmd("split")
-	vim.cmd("terminal")
-end)
-vim.keymap.set({ "n" }, "<leader>lzr", function()
-	vim.cmd("Zigrun")
-end, { desc = "Zig Run" })
-vim.keymap.set({ "n" }, "<leader>lpe", function()
-	vim.cmd("Pyrun")
-end, { desc = "Python Run" })
-vim.keymap.set({ "n" }, "<leader>lle", function()
-	vim.cmd("Luarun")
-end, { desc = "Lua Run" })
-vim.keymap.set({ "n" }, "<leader>lzc", function()
-	vim.cmd("Zigbuild")
-end, { desc = "Zig Build" })
-vim.keymap.set({ "n" }, "<leader>lzt", function()
-	vim.cmd("Zigtest")
-end, { desc = "Zig Test" })
-vim.keymap.set({ "n" }, "<leader>ldr", function()
-	vim.cmd("Dotnetrun")
-end, { desc = "Dotnet Run" })
-vim.keymap.set({ "n" }, "<C-d>", function()
-	vim.cmd("foldclose")
-end)
-vim.keymap.set({ "n" }, "<leader>ljr", function()
-	vim.cmd("Javarun")
-end, { desc = "Java Run" })
-
-vim.keymap.set({ "n", "i" }, "<C-A-f>", function()
-	vim.cmd("lua require('conform').format()")
-	vim.cmd("w")
-end)
---}}}
 --Lsp servers to be enabled and configured.{{{
 --Enable and mason setup{{{
 --vim.lsp.start()
 require("config.lazy")
-require("mason").setup()
+require("mason").setup({ registries = { "github:crashdummyy/mason-registry", "github:mason-org/mason-registry" } })
+
 --enable LSP SERVERS and setup LSP servers
 vim.lsp.enable("clangd")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("markdown_oxide")
 --vim.lsp.enable('jsonls')
 --vim.lsp.enable('pylyzer')
-vim.lsp.enable("omnisharp")
+--vim.lsp.enable("omnisharp") keep omnisharp as a fallback server for roslyn
 vim.lsp.enable("zls")
 vim.lsp.enable("tombi")
 vim.lsp.enable("html")
@@ -197,6 +152,7 @@ vim.lsp.enable("cssls")
 vim.lsp.enable("biome")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("jdtls")
+vim.lsp.enable("roslyn_ls")
 --}}}
 --Lua{{{
 vim.lsp.config("lua_ls", {
@@ -307,7 +263,6 @@ vim.lsp.config("markdown_oxide", {
 --}}}
 --Omnisharp {{{
 vim.lsp.config("omnisharp", {
-	use_mono = true,
 	workspace = {
 		workspaceFolders = false,
 	},
@@ -565,6 +520,217 @@ vim.lsp.config("jdtls", {
 	init_options = {},
 })
 --}}}
+--Rosalyn_ls{{{
+local function on_init_sln(client, target)
+	vim.notify("Initializing: " .. target, vim.log.levels.TRACE, { title = "roslyn_ls" })
+	---@diagnostic disable-next-line: param-type-mismatch
+	client:notify("solution/open", {
+		solution = vim.uri_from_fname(target),
+	})
+end
+
+---@param client vim.lsp.Client
+---@param project_files string[]
+local function on_init_project(client, project_files)
+	vim.notify("Initializing: projects", vim.log.levels.TRACE, { title = "roslyn_ls" })
+	---@diagnostic disable-next-line: param-type-mismatch
+	client:notify("project/open", {
+		projects = vim.tbl_map(function(file)
+			return vim.uri_from_fname(file)
+		end, project_files),
+	})
+end
+
+---@param client vim.lsp.Client
+local function refresh_diagnostics(client)
+	local buffers = vim.lsp.get_buffers_by_client_id(client.id)
+	for _, buf in ipairs(buffers) do
+		if vim.api.nvim_buf_is_loaded(buf) then
+			client:request(
+				vim.lsp.protocol.Methods.textDocument_diagnostic,
+				{ textDocument = vim.lsp.util.make_text_document_params(buf) },
+				nil,
+				buf
+			)
+		end
+	end
+end
+
+local function roslyn_handlers()
+	return {
+		["workspace/projectInitializationComplete"] = function(_, _, ctx)
+			vim.notify("Roslyn project initialization complete", vim.log.levels.INFO, { title = "roslyn_ls" })
+			local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
+			refresh_diagnostics(client)
+			return vim.NIL
+		end,
+		["workspace/_roslyn_projectNeedsRestore"] = function(_, result, ctx)
+			local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
+
+			---@diagnostic disable-next-line: param-type-mismatch
+			client:request("workspace/_roslyn_restore", result, function(err, response)
+				if err then
+					vim.notify(err.message, vim.log.levels.ERROR, { title = "roslyn_ls" })
+				end
+				if response then
+					for _, v in ipairs(response) do
+						vim.notify(v.message, vim.log.levels.INFO, { title = "roslyn_ls" })
+					end
+				end
+			end)
+
+			return vim.NIL
+		end,
+		["razor/provideDynamicFileInfo"] = function(_, _, _)
+			vim.notify(
+				"Razor is not supported.\nPlease use https://github.com/tris203/rzls.nvim",
+				vim.log.levels.WARN,
+				{ title = "roslyn_ls" }
+			)
+			return vim.NIL
+		end,
+	}
+end
+vim.lsp.config("roslyn_ls", {
+	offset_encoding = "utf-8",
+	cmd = {
+		"roslyn",
+		"--logLevel",
+		"Information",
+		"--extensionLogDirectory",
+		vim.fs.joinpath(vim.uv.os_tmpdir(), "roslyn_ls/logs"),
+		"--stdio",
+	},
+	filetypes = { "cs" },
+	handlers = roslyn_handlers(),
+
+	commands = {
+		["roslyn.client.completionComplexEdit"] = function(command, ctx)
+			local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
+			local args = command.arguments or {}
+			local uri, edit = args[1], args[2]
+
+			if uri and edit and edit.newText and edit.range then
+				local workspace_edit = {
+					changes = {
+						[uri.uri] = {
+							{
+								range = edit.range,
+								newText = edit.newText,
+							},
+						},
+					},
+				}
+				vim.lsp.util.apply_workspace_edit(workspace_edit, client.offset_encoding)
+			else
+				vim.notify(
+					"roslyn_ls: completionComplexEdit args not understood: " .. vim.inspect(args),
+					vim.log.levels.WARN
+				)
+			end
+		end,
+	},
+
+	root_dir = function(bufnr, cb)
+		local bufname = vim.api.nvim_buf_get_name(bufnr)
+		-- don't try to find sln or csproj for files from libraries
+		-- outside of the project
+		if not bufname:match("^" .. vim.fs.joinpath("/tmp/MetadataAsSource/")) then
+			-- try find solutions root first
+			local root_dir = vim.fs.root(bufnr, function(fname, _)
+				return fname:match("%.sln[x]?$") ~= nil
+			end)
+
+			if not root_dir then
+				-- try find projects root
+				root_dir = vim.fs.root(bufnr, function(fname, _)
+					return fname:match("%.csproj$") ~= nil
+				end)
+			end
+
+			if root_dir then
+				cb(root_dir)
+			end
+		end
+	end,
+	on_init = {
+		function(client)
+			local root_dir = client.config.root_dir
+
+			-- try load first solution we find
+			for entry, type in vim.fs.dir(root_dir) do
+				if type == "file" and (vim.endswith(entry, ".sln") or vim.endswith(entry, ".slnx")) then
+					on_init_sln(client, vim.fs.joinpath(root_dir, entry))
+					return
+				end
+			end
+
+			-- if no solution is found load project
+			for entry, type in vim.fs.dir(root_dir) do
+				if type == "file" and vim.endswith(entry, ".csproj") then
+					on_init_project(client, { vim.fs.joinpath(root_dir, entry) })
+				end
+			end
+		end,
+	},
+
+	on_attach = function(client, bufnr)
+		-- avoid duplicate autocmds for same buffer
+		if vim.api.nvim_get_autocmds({ buffer = bufnr, group = group })[1] then
+			return
+		end
+
+		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+			group = group,
+			buffer = bufnr,
+			callback = function()
+				refresh_diagnostics(client)
+			end,
+			desc = "roslyn_ls: refresh diagnostics",
+		})
+	end,
+
+	capabilities = {
+		-- HACK: Doesn't show any diagnostics if we do not set this to true
+		textDocument = {
+			diagnostic = {
+				dynamicRegistration = true,
+			},
+		},
+	},
+	settings = {
+		["csharp|background_analysis"] = {
+			dotnet_analyzer_diagnostics_scope = "fullSolution",
+			dotnet_compiler_diagnostics_scope = "fullSolution",
+		},
+		["csharp|inlay_hints"] = {
+			csharp_enable_inlay_hints_for_implicit_object_creation = true,
+			csharp_enable_inlay_hints_for_implicit_variable_types = true,
+			csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+			csharp_enable_inlay_hints_for_types = true,
+			dotnet_enable_inlay_hints_for_indexer_parameters = true,
+			dotnet_enable_inlay_hints_for_literal_parameters = true,
+			dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+			dotnet_enable_inlay_hints_for_other_parameters = true,
+			dotnet_enable_inlay_hints_for_parameters = true,
+			dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+			dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+			dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+		},
+		["csharp|symbol_search"] = {
+			dotnet_search_reference_assemblies = true,
+		},
+		["csharp|completion"] = {
+			dotnet_show_name_completion_suggestions = true,
+			dotnet_show_completion_items_from_unimported_namespaces = true,
+			dotnet_provide_regex_completions = true,
+		},
+		["csharp|code_lens"] = {
+			dotnet_enable_references_code_lens = true,
+		},
+	},
+})
+--}}}
 --}}}
 --Colorizer{{{
 require("colorizer").setup({
@@ -671,23 +837,20 @@ local builtin = require("telescope.builtin")
 
 local telescope = require("telescope")
 
-vim.keymap.set("n", "<leader>tf", builtin.find_files,{ desc = "Telescope find files" })
-vim.keymap.set("n", "<leader>tg", builtin.live_grep, { desc = "Telescope live grep" })
-vim.keymap.set("n", "<leader>tb", builtin.buffers, { desc = "Telescope buffers" })
-vim.keymap.set("n", "<leader>th", builtin.help_tags, { desc = "Telescope help tags" })
-
-telescope.setup({  defaults = {
-    -- ...
-  },
-  pickers = {
-    find_files = {
-      theme = "ivy",
-      hidden = "true",
-    }
-  },
-  extensions = {
-    -- ...
-  }})
+telescope.setup({
+	defaults = {
+		-- ...
+	},
+	pickers = {
+		find_files = {
+			theme = "ivy",
+			hidden = "true",
+		},
+	},
+	extensions = {
+		-- ...
+	},
+})
 --}}}
 -- Treesitter config and setup{{{
 require("nvim-treesitter.configs").setup({
@@ -777,4 +940,55 @@ vim.lsp.config("html", {
 vim.lsp.config("cssls", {
 	capabilities = capabilities,
 })
+--}}}
+--Custom keybinds{{{
+local jdtls = require("jdtls")
+--The bindings for Telescope and Ranger aren't here they are in the Telescope configuration as they use require or other functions for
+--their keybinds.
+vim.keymap.set({ "i", "n" }, "<C-f>", function()
+	vim.cmd("Telescope find_files")
+end)
+vim.keymap.set({ "i", "n" }, "<C-p>", function()
+	vim.cmd("tabprevious")
+end)
+vim.keymap.set({ "i", "n" }, "<C-n>", function()
+	vim.cmd("tabnext")
+end)
+vim.keymap.set({ "i", "n" }, "<C-A-t>", function()
+	vim.cmd("split")
+	vim.cmd("terminal")
+end)
+vim.keymap.set({ "n" }, "<leader>lzr", function()
+	vim.cmd("Zigrun")
+end, { desc = "Zig Run" })
+vim.keymap.set({ "n" }, "<leader>lpe", function()
+	vim.cmd("Pyrun")
+end, { desc = "Python Run" })
+vim.keymap.set({ "n" }, "<leader>lle", function()
+	vim.cmd("Luarun")
+end, { desc = "Lua Run" })
+vim.keymap.set({ "n" }, "<leader>lzc", function()
+	vim.cmd("Zigbuild")
+end, { desc = "Zig Build" })
+vim.keymap.set({ "n" }, "<leader>lzt", function()
+	vim.cmd("Zigtest")
+end, { desc = "Zig Test" })
+vim.keymap.set({ "n" }, "<leader>ldr", function()
+	vim.cmd("Dotnetrun")
+end, { desc = "Dotnet Run" })
+vim.keymap.set({ "n" }, "<C-d>", function()
+	vim.cmd("foldclose")
+end)
+vim.keymap.set({ "n" }, "<leader>ljr", function()
+	vim.cmd("Javarun")
+end, { desc = "Java Run" })
+
+vim.keymap.set({ "n", "i" }, "<A-f>", function()
+	vim.cmd("lua require('conform').format()")
+	vim.cmd("w")
+end)
+vim.keymap.set("n", "<leader>tf", builtin.find_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>tg", builtin.live_grep, { desc = "Telescope live grep" })
+vim.keymap.set("n", "<leader>tb", builtin.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>th", builtin.help_tags, { desc = "Telescope help tags" })
 --}}}
