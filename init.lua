@@ -907,6 +907,7 @@ require("conform").setup({
 		javascript = { "biome", "format" },
 		html = { "htmlbeautifier" },
 		markdown = { "mdformat" },
+		toml = {"tombi","format"},
 	},
 })
 --}}}
