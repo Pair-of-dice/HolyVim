@@ -4,7 +4,7 @@ return {
 	config = function()
 		--Setup Lualine.lua{{{
 		require("lualine").setup({
-			options = { theme = "molokai" },
+			options = { theme = "horizon" },
 		})
 		--}}}
 	end,
