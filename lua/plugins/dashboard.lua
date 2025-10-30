@@ -32,6 +32,7 @@ return {
 			change_to_vcs_root = false, -- default is false,for open file in hyper mru. it will change to the root of vcs
 			config = { --config for theme
 				header = vim.split(logo, "\n"),
+				footer = { "Welcome to Holy Vim!" },
 				shortcut = {
 					{
 						icon = " ",
@@ -62,7 +63,6 @@ return {
 				--file_height,-- preview file height
 				--file_width,-- preview file width
 			},
-			footer = { "Welcome to Holy Vim!" },
 		})
 	end,
 	dependencies = { { "nvim-tree/nvim-web-devicons" } },
