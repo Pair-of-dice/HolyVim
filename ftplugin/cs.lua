@@ -24,11 +24,9 @@ vim.api.nvim_create_user_command("Dotnetrun", function()
 	vim.cmd("split")
 	vim.cmd("terminal dotnet run")
 end, { desc = "Run the current Dotnet project" })
-vim.api.nvim_create_user_command(
-	"CsharpTemplate",
-	vim.cmd("r ~/.config/nvim/misc/template.cs"),
-	{ desc = "Add Csharp boilerplate" }
-)
+vim.api.nvim_create_user_command("CsharpTemplate", function()
+	vim.cmd("read ~/.config/nvim/misc/template.cs")
+end, { desc = "Add Csharp boilerplate" })
 
 vim.keymap.set({ "n" }, "<leader>lr", function()
 	vim.cmd("Dotnetrun")
