@@ -18,14 +18,22 @@ dap.configurations.cs = {
 	},
 }
 --}}}
---Dotnet keybinds and commands{{{
+--Dotnet and csharp keybinds and commands{{{
 vim.api.nvim_create_user_command("Dotnetrun", function()
 	vim.cmd("w")
 	vim.cmd("split")
 	vim.cmd("terminal dotnet run")
 end, { desc = "Run the current Dotnet project" })
+vim.api.nvim_create_user_command(
+	"CsharpTemplate",
+	vim.cmd("r ~/.config/nvim/misc/template.cs"),
+	{ desc = "Add Csharp boilerplate" }
+)
 
 vim.keymap.set({ "n" }, "<leader>lr", function()
 	vim.cmd("Dotnetrun")
 end, { desc = "Dotnet Run" })
+vim.keymap.set({ "n" }, "<leader>lt", function()
+	vim.cmd("CsharpTemplate")
+end, { desc = "Auto-boilerplate" })
 --}}}
