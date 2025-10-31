@@ -82,6 +82,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.hl.on_yank()
 	end,
 })
+-- Doesn't work in the plugin's file, I don't know why and don't care.
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	callback = function()
+		require("lint").try_lint()
+	end,
+})
 --}}}
 --Create user commands{{{
 -- See `:h nvim_create_user_command()` and `:h user-commands`
