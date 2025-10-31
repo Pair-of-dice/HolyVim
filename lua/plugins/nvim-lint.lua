@@ -1,4 +1,4 @@
-local efm = "%l:%c %m,%l %m"
+--local efm = "%l:%c %m,%l %m"
 return {
 	lazy = true,
 	"mfussenegger/nvim-lint",
@@ -9,7 +9,7 @@ return {
 			css = { "biomejs" },
 			html = { "biomejs" },
 			lua = { "selene" },
-			markdown = { "mado" },
+			--markdown = { "mado" },
 		}
 --		require("lint").linters.mado = {
 --			cmd = "mado",
