@@ -255,6 +255,7 @@ vim.lsp.config("omnisharp", {
 		},
 	},
 })
+--}}}
 vim.lsp.config("tombi", {
 	cmd = { "tombi", "lsp" },
 	filetypes = { "toml" },
@@ -308,7 +309,7 @@ vim.lsp.config("cssls", {
 	cmd = { "vscode-css-language-server", "--stdio" },
 	filetypes = { "css", "scss", "less" },
 	init_options = {
-		provideFormatter = true,
+		provideFormatter = false,
 	},
 	root_markers = { "package.json", ".git" },
 	settings = {
@@ -715,14 +716,6 @@ vim.lsp.config("yamlls", {
 		client.server_capabilities.documentFormattingProvider = true
 	end,
 })
---Yamllint{{{
-vim.lsp.config("yamllint", {
-	cmd = { "yamllint", "-f", "parsable" },
-	filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values" },
-	root_markers = { ".git" },
-})
---}}}
---}}}
 --}}}
 --Set up builtin completion{{{
 vim.cmd([[set completeopt+=menuone,noselect,popup,preinsert]])
