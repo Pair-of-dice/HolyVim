@@ -92,7 +92,6 @@ vim.api.nvim_create_user_command("GitBlameLine", function()
 	print(vim.fn.system({ "git", "blame", "-L", line_number .. ",+1", filename }))
 end, { desc = "Print the git blame for the current line" })
 
-
 --}}}
 --Lsp servers to be enabled and configured.{{{
 --Enable and mason setup{{{
@@ -116,6 +115,8 @@ vim.lsp.enable("biome")
 vim.lsp.enable("ts_ls")
 --vim.lsp.enable("jdtls") The config has been commented, it is in ftplugin at the moment.
 vim.lsp.enable("roslyn_ls")
+vim.lsp.enable("yamlls")
+vim.lsp.enable("yamllint")
 --}}}
 --Lua{{{
 vim.lsp.config("lua_ls", {
@@ -694,6 +695,33 @@ vim.lsp.config("roslyn_ls", {
 		},
 	},
 })
+--}}}
+--Yamlls{{{
+vim.lsp.config("yamlls", {
+	cmd = { "yaml-language-server", "--stdio" },
+	filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values" },
+	root_markers = { ".git" },
+	settings = {
+		-- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
+		redhat = { telemetry = { enabled = false } },
+		-- formatting disabled by default in yaml-language-server; enable it
+		yaml = { format = { enable = true } },
+	},
+	on_init = function(client)
+		--- https://github.com/neovim/nvim-lspconfig/pull/4016
+		--- Since formatting is disabled by default if you check `client:supports_method('textDocument/formatting')`
+		--- during `LspAttach` it will return `false`. This hack sets the capability to `true` to facilitate
+		--- autocmd's which check this capability
+		client.server_capabilities.documentFormattingProvider = true
+	end,
+})
+--Yamllint{{{
+vim.lsp.config("yamllint", {
+	cmd = { "yamllint", "-f", "parsable" },
+	filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values" },
+	root_markers = { ".git" },
+})
+--}}}
 --}}}
 --}}}
 --Set up builtin completion{{{

@@ -17,6 +17,7 @@ return {
 				markdown = { "mdformat" },
 				toml = { "tombi" },
 				zig = { "zigfmt" },
+				yaml = { "yamlfmt" },
 			},
 		})
 		--}}}
