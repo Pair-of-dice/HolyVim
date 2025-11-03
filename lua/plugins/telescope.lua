@@ -16,6 +16,10 @@ return {
 					theme = "ivy",
 					hidden = "true",
 				},
+				live_grep = {
+					theme = "ivy",
+					hidden = "true",
+				},
 			},
 			extensions = {
 				-- ...
