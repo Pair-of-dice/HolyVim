@@ -10,7 +10,6 @@ return {
 			css = { "biomejs" },
 			html = { "biomejs" },
 			lua = { "selene" },
-			markdown = { "markdownlint" },
 		}
 	end,
 }
