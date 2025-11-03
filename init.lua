@@ -210,6 +210,13 @@ vim.lsp.config("zls", {
 })
 --}}}
 --markdown oxide{{{
+local function command_factory(client, bufnr, cmd)
+	return client:exec_cmd({
+		title = ("Markdown-Oxide-%s"):format(cmd),
+		command = "jump",
+		arguments = { cmd },
+	}, { bufnr = bufnr })
+end
 vim.lsp.config("markdown_oxide", {
 	cmd = { "markdown-oxide" },
 	filetypes = { "markdown", "md" },
@@ -563,6 +570,7 @@ local function roslyn_handlers()
 		end,
 	}
 end
+local group = vim.api.nvim_create_augroup("lspconfig.roslyn_ls", { clear = true })
 vim.lsp.config("roslyn_ls", {
 	offset_encoding = "utf-8",
 	cmd = {
