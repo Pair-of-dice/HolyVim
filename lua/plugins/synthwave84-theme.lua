@@ -28,7 +28,8 @@ return {
 					}
 				end,
 			})
-			vim.cmd.colorscheme("fluoromachine")
+			-- I no longer wish to use this as the default colourscheme
+			--vim.cmd.colorscheme("fluoromachine")
 		end,
 	},
 }

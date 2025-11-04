@@ -123,6 +123,7 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("roslyn_ls")
 vim.lsp.enable("yamlls")
 vim.lsp.enable("yamllint")
+--}}}
 --Lua{{{
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
@@ -268,6 +269,7 @@ vim.lsp.config("omnisharp", {
 	},
 })
 --}}}
+--Tombi{{{
 vim.lsp.config("tombi", {
 	cmd = { "tombi", "lsp" },
 	filetypes = { "toml" },
@@ -498,7 +500,7 @@ vim.lsp.config("ts_ls", {
 --	init_options = { bundles = jdtls_bundles },
 --})
 --}}}
---Rosalyn_ls{{{
+--Roslyn_ls{{{
 local function on_init_sln(client, target)
 	vim.notify("Initializing: " .. target, vim.log.levels.TRACE, { title = "roslyn_ls" })
 	---@diagnostic disable-next-line: param-type-mismatch
