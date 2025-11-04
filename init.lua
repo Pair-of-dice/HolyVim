@@ -123,7 +123,6 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("roslyn_ls")
 vim.lsp.enable("yamlls")
 vim.lsp.enable("yamllint")
---}}}
 --Lua{{{
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
@@ -730,6 +729,7 @@ vim.lsp.config("yamlls", {
 		client.server_capabilities.documentFormattingProvider = true
 	end,
 })
+--}}}
 --}}}
 --Set up builtin completion{{{
 vim.cmd([[set completeopt+=menuone,noselect,popup,preinsert]])

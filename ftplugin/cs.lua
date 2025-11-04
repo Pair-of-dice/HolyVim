@@ -34,4 +34,7 @@ end, { desc = "Dotnet Run" })
 vim.keymap.set({ "n" }, "<leader>lt", function()
 	vim.cmd("CsharpTemplate")
 end, { desc = "Auto-boilerplate" })
+vim.keymap.set({ "n" }, "<leader>lf", function()
+	vim.cmd("Roslyn restart")
+end,{ desc = "Restart Roslyn" })
 --}}}
