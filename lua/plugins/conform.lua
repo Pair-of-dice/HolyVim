@@ -20,6 +20,9 @@ return {
 				yaml = { "yamlfmt" },
 			},
 		})
+		vim.keymap.set({ "n", "i" }, "<C-A-f>", function()
+			vim.cmd("lua require('conform').format()")
+		end)
 		--}}}
 	end,
 }
