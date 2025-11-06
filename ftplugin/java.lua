@@ -77,6 +77,9 @@ config["init_options"] = {
 require("jdtls").start_or_attach(config)
 --}}}
 --Java keybinds and commands outside of jdtls{{{
+vim.api.nvim_create_user_command("JavaTemplate", function()
+	vim.cmd("read ~/.config/nvim/misc/template.java")
+end, { desc = "Add Java boilerplate" })
 vim.api.nvim_create_user_command("Javarun", function()
 	local filename = vim.api.nvim_buf_get_name(0)
 	vim.cmd("w")
@@ -87,4 +90,7 @@ end, { desc = "Run the current Java buffer" })
 vim.keymap.set({ "n" }, "<leader>lr", function()
 	vim.cmd("Javarun")
 end, { desc = "Java Run" })
+vim.keymap.set({ "n" }, "<leader>lt", function()
+	vim.cmd("JavaTemplate")
+end, { desc = "Auto-boilerplate" })
 --}}}
