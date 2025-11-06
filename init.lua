@@ -751,12 +751,7 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
 })
 --}}}
 --Custom keybinds{{{
---The bindings for Ranger aren't here. It uses a different way of making keybinds.
-local builtin = require("telescope.builtin")
 
-vim.keymap.set({ "i", "n" }, "<C-f>", function()
-	vim.cmd("Telescope find_files")
-end)
 vim.keymap.set({ "i", "n" }, "<C-p>", function()
 	vim.cmd("tabprevious")
 end)
@@ -770,16 +765,7 @@ end)
 vim.keymap.set({ "n" }, "<C-d>", function()
 	vim.cmd("foldclose")
 end)
-
-vim.keymap.set({ "n", "i" }, "<C-A-f>", function()
-	vim.cmd("lua require('conform').format()")
-	vim.cmd("w")
-end)
 vim.keymap.set({ "n", "i" }, "<C-A-d>", function()
 	vim.cmd("lua vim.diagnostic.setloclist()")
 end)
-vim.keymap.set("n", "<leader>tf", builtin.find_files, { desc = "Telescope find files" })
-vim.keymap.set("n", "<leader>tg", builtin.live_grep, { desc = "Telescope live grep" })
-vim.keymap.set("n", "<leader>tb", builtin.buffers, { desc = "Telescope buffers" })
-vim.keymap.set("n", "<leader>th", builtin.help_tags, { desc = "Telescope help tags" })
 --}}}
