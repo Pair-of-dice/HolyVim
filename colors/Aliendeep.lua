@@ -1,1 +1,1 @@
-require("Aliendeep").setup()
+require("Aliendeep").init()
