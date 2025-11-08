@@ -4,7 +4,7 @@ return {
 	config = function()
 		--Setup Lualine.lua{{{
 		require("lualine").setup({
-			options = { theme = "aliendeep" },
+			options = { theme = "alienocean" },
 		})
 		--}}}
 	end,

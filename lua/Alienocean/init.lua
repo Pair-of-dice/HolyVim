@@ -1,5 +1,5 @@
-local Aliendeep = {}
-Aliendeep.name = "Aliendeep"
+local Alienocean = {}
+Alienocean.name = "Alienocean"
 --- @class ColourConfig colorscheme options
 local defaults = {
 	transparent = false, -- set transparent bg hl
@@ -7,28 +7,28 @@ local defaults = {
 	allowTextStyling = true,
 	overrides = false,
 }
-Aliendeep.opts = defaults
+Alienocean.opts = defaults
 --- @param opts ColourConfig colorscheme opts
-function Aliendeep.setup(opts)
-	Aliendeep.opts = vim.tbl_deep_extend("force", {}, Aliendeep.opts or defaults, opts or {})
+function Alienocean.setup(opts)
+	Alienocean.opts = vim.tbl_deep_extend("force", {}, Alienocean.opts or defaults, opts or {})
 end
 --- @param opts ColourConfig  colorscheme opts
-function Aliendeep.init(opts)
+function Alienocean.init(opts)
 	if opts then
-		Aliendeep.setup(opts)
+		Alienocean.setup(opts)
 	end
 	vim.cmd("hi clear")
 	vim.o.termguicolors = true
-	vim.g.colors_name = Aliendeep.name
+	vim.g.colors_name = Alienocean.name
 	vim.o.background = "dark"
 	vim.o.tgc = true
 
-	local theme = require("Aliendeep.theme")
+	local theme = require("Alienocean.theme")
 	local highlights = theme.build()
 	for group, attrs in pairs(highlights) do
 		vim.api.nvim_set_hl(0, group, attrs)
 	end
-	local palette = require("Aliendeep.palette").Get()
+	local palette = require("Alienocean.palette").Get()
 	vim.g.terminal_color_0 = palette.bg
 	vim.g.terminal_color_8 = palette.fg
 	vim.g.terminal_color_1 = palette.red
@@ -44,4 +44,4 @@ function Aliendeep.init(opts)
 	vim.g.terminal_color_6 = palette.green
 	vim.g.terminal_color_14 = palette.yellow
 end
-return Aliendeep
+return Alienocean

@@ -1,8 +1,8 @@
-Colours = require("Aliendeep.palette").Get()
+Colours = require("Alienocean.palette").Get()
 Highlights = {}
 ---@return table
 Highlights.build = function()
-	local opts = require("Aliendeep").opts
+	local opts = require("Alienocean").opts
 	local theme = {
 		Normal = { fg = Colours.fg, bg = Colours.bg },
 		FzfLuaBorder = { link = "Normal" },
@@ -372,7 +372,7 @@ Highlights.build = function()
 		Statement = { fg = Colours.green, bold = opts.allowTextStyling },
 		Conditional = { link = "Statement" },
 		Exception = { link = "Statement" },
-		Keyword = { fg = Colours.fg, bg = Colours.bgdark },
+		Keyword = { fg = Colours.fg },
 		Label = { link = "Statement" },
 		Repeat = { link = "Statement" },
 		helpHyperTextEntry = { link = "Statement" },
