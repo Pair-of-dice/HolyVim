@@ -32,10 +32,7 @@ return {
 			}),
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-				{ name = "vsnip" }, -- For vsnip users.
-				-- { name = 'luasnip' }, -- For luasnip users.
-				-- { name = 'ultisnips' }, -- For ultisnips users.
-				-- { name = 'snippy' }, -- For snippy users.
+				{ name = "luasnip" }, -- For luasnip users.
 			}, {
 				{ name = "buffer" },
 			}),
@@ -70,22 +67,6 @@ return {
 				{ name = "cmdline" },
 			}),
 			matching = { disallow_symbol_nonprefix_matching = false },
-		})
-
-		-- Set up lspconfig.
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-		vim.lsp.config("lua_ls", {
-			capabilities = capabilities,
-		})
-		vim.lsp.config("zls", {
-			capabilities = capabilities,
-		})
-		vim.lsp.config("ts_ls", {
-			capabilities = capabilities,
-		})
-		vim.lsp.config("roslyn", {
-			capabilities = capabilities,
 		})
 	end,
 }

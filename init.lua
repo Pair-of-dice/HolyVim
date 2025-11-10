@@ -123,6 +123,11 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("roslyn_ls")
 vim.lsp.enable("yamlls")
 vim.lsp.enable("yamllint")
+
+-- Set up lspconfig.
+
+local cmpCapabilities = require("cmp_nvim_lsp").default_capabilities()
+
 --}}}
 --Lua{{{
 vim.lsp.config("lua_ls", {
@@ -184,6 +189,7 @@ vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {},
 	},
+	capabilities = cmpCapabilities,
 })
 --}}}
 --Clangd{{{
@@ -199,6 +205,7 @@ vim.lsp.config("clangd", {
 		"configure.ac",
 		".git",
 	},
+	capabilities = cmpCapabilities,
 })
 --}}}
 --zls{{{
@@ -207,6 +214,7 @@ vim.lsp.config("zls", {
 	filetypes = { "zig", "zir" },
 	root_markers = { "zls.json", "build.zig", ".git" },
 	workspace_required = false,
+	capabilities = cmpCapabilities,
 })
 --}}}
 --markdown oxide{{{
@@ -234,8 +242,8 @@ vim.lsp.config("markdown_oxide", {
 			)
 		end
 	end,
-
 	root_markers = { ".git", ".obsidian", ".moxide.toml" },
+	capabilities = cmpCapabilities,
 })
 --}}}
 --Omnisharp {{{
@@ -267,6 +275,7 @@ vim.lsp.config("omnisharp", {
 			IncludePrereleases = true,
 		},
 	},
+	capabilities = cmpCapabilities,
 })
 --}}}
 --Tombi{{{
@@ -274,6 +283,7 @@ vim.lsp.config("tombi", {
 	cmd = { "tombi", "lsp" },
 	filetypes = { "toml" },
 	root_markers = { "tombi.toml", "pyproject.toml", ".git" },
+	capabilities = cmpCapabilities,
 })
 --}}}
 --html{{{
@@ -290,6 +300,7 @@ vim.lsp.config("html", {
 	},
 	root_markers = { "package.json", ".git" },
 	settings = {},
+	capabilities = cmpCapabilities,
 })
 --}}}
 --css_variables{{{
@@ -316,6 +327,7 @@ vim.lsp.config("css_variables", {
 			lookupFiles = { "**/*.less", "**/*.scss", "**/*.sass", "**/*.css" },
 		},
 	},
+	capabilities = cmpCapabilities,
 })
 --}}}
 --cssls{{{
@@ -337,6 +349,7 @@ vim.lsp.config("cssls", {
 			validate = true,
 		},
 	},
+	capabilities = cmpCapabilities,
 })
 --}}}
 --Biome{{{
@@ -383,6 +396,7 @@ vim.lsp.config("biome", {
 		on_dir(project_root)
 	end,
 	workspace_required = true,
+	capabilities = cmpCapabilities,
 })
 --}}}
 --ts_ls(typescript and javascript ls){{{
@@ -449,6 +463,7 @@ vim.lsp.config("ts_ls", {
 			})
 		end, {})
 	end,
+	capabilities = cmpCapabilities,
 })
 --}}}
 --Jdtls{{{
@@ -678,6 +693,7 @@ vim.lsp.config("roslyn_ls", {
 				dynamicRegistration = true,
 			},
 		},
+		cmpCapabilities,
 	},
 	settings = {
 		["csharp|background_analysis"] = {
@@ -730,6 +746,7 @@ vim.lsp.config("yamlls", {
 		--- autocmd's which check this capability
 		client.server_capabilities.documentFormattingProvider = true
 	end,
+	capabilities = cmpCapabilities,
 })
 --}}}
 --}}}
@@ -770,5 +787,5 @@ vim.keymap.set({ "n", "i" }, "<C-A-d>", function()
 end)
 --}}}
 --Set colourscheme{{{
-	vim.cmd.colorscheme("Alienocean")
+vim.cmd.colorscheme("Alienocean")
 --}}}
