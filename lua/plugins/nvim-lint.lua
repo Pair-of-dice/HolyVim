@@ -1,4 +1,4 @@
-local efm = "%l:%c %m,%l %m"
+--local efm = "%l:%c %m,%l %m"
 
 return {
 	lazy = true,
@@ -10,6 +10,7 @@ return {
 			css = { "biomejs" },
 			html = { "biomejs" },
 			lua = { "selene" },
+			toml = { "tombi" },
 		}
 	end,
 }
