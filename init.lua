@@ -769,3 +769,6 @@ vim.keymap.set({ "n", "i" }, "<C-A-d>", function()
 	vim.cmd("lua vim.diagnostic.setloclist()")
 end)
 --}}}
+--Set colourscheme{{{
+	vim.cmd.colorscheme("Alienocean")
+--}}}
