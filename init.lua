@@ -111,7 +111,6 @@ vim.lsp.enable("lua_ls")
 vim.lsp.enable("markdown_oxide")
 --vim.lsp.enable('jsonls')
 --vim.lsp.enable('pylyzer')
---vim.lsp.enable("omnisharp") keep omnisharp as a fallback server for roslyn
 vim.lsp.enable("zls")
 vim.lsp.enable("tombi")
 vim.lsp.enable("html")
@@ -243,38 +242,6 @@ vim.lsp.config("markdown_oxide", {
 		end
 	end,
 	root_markers = { ".git", ".obsidian", ".moxide.toml" },
-	capabilities = cmpCapabilities,
-})
---}}}
---Omnisharp {{{
-vim.lsp.config("omnisharp", {
-	workspace = {
-		workspaceFolders = false,
-	},
-	cmd = {
-		"OmniSharp",
-		"-z",
-		"--hostPID",
-		"12345",
-		"DotNet:enablePackageRestore=false",
-		"--encoding",
-		"utf-8",
-		"--languageserver",
-	},
-	filetypes = { "cs", "vb" },
-	root_markers = { ".csproj", ".git", ".sln", "omnisharp.json", "function.json" },
-	init_options = {},
-	settings = {
-		FormattingOptions = {
-			EnableEditorConfigSupport = true,
-		},
-		MsBuild = {},
-		RenameOptions = {},
-		RoslynExtensionsOptions = {},
-		Sdk = {
-			IncludePrereleases = true,
-		},
-	},
 	capabilities = cmpCapabilities,
 })
 --}}}
