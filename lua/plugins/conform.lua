@@ -18,6 +18,7 @@ return {
 				toml = { "tombi" },
 				zig = { "zigfmt" },
 				yaml = { "yamlfmt" },
+				python = { "black" },
 			},
 		})
 		vim.keymap.set({ "n", "i" }, "<C-A-f>", function()
