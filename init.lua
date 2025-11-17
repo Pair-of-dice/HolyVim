@@ -110,7 +110,7 @@ vim.lsp.enable("clangd")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("markdown_oxide")
 --vim.lsp.enable('jsonls')
---vim.lsp.enable('pylyzer')
+vim.lsp.enable("pylsp")
 vim.lsp.enable("zls")
 vim.lsp.enable("tombi")
 vim.lsp.enable("html")
@@ -755,6 +755,30 @@ vim.lsp.config("yamlls", {
 		--- autocmd's which check this capability
 		client.server_capabilities.documentFormattingProvider = true
 	end,
+	capabilities = cmpCapabilities,
+})
+--}}}
+--Python language server(pylsp){{{
+vim.lsp.config("pylsp", {
+	cmd = { "pylsp" },
+	filetypes = { "python" },
+	root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git" },
+	settings = {
+		pylsp = {
+			plugins = {
+				--Configure plugins here
+				pylint = {
+					enabled = true,
+				},
+				black = {
+					enabled = true,
+				},
+				yapf = {
+					enabled = false,
+				},
+			},
+		},
+	},
 	capabilities = cmpCapabilities,
 })
 --}}}
