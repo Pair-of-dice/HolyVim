@@ -812,13 +812,10 @@ vim.keymap.set({ "i", "n" }, "<C-A-t>", function()
 	vim.cmd("split")
 	vim.cmd("terminal")
 end)
-vim.keymap.set({ "n" }, "<C-d>", function()
-	vim.cmd("foldclose")
-end)
-vim.keymap.set({ "n", "i" }, "<C-A-d>", function()
+vim.keymap.set({ "n", "i" }, "<C-d>", function()
 	vim.cmd("lua vim.diagnostic.setloclist()")
 end)
 --}}}
 --Set colourscheme{{{
 vim.cmd.colorscheme("Alienocean")
---}}}
+--}}`
