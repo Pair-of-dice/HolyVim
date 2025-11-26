@@ -21,9 +21,7 @@ return {
 					hidden = "true",
 				},
 			},
-			extensions = {
-				-- ...
-			},
+			extensions = {},
 		})
 		vim.keymap.set({ "i", "n" }, "<C-f>", function()
 			vim.cmd("Telescope find_files")

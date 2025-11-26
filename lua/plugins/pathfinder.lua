@@ -1,0 +1,3 @@
+return {
+	"HawkinsT/pathfinder.nvim",
+}
