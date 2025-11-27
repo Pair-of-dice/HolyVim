@@ -29,7 +29,7 @@ vim.api.nvim_create_user_command("CsharpTemplate", function()
 end, { desc = "Add Csharp boilerplate" })
 
 vim.keymap.set({ "n" }, "<leader>lr", function()
-	vim.cmd("STerm dotnet run")
+	vim.cmd("Dotnetrun")
 end, { desc = "Dotnet Run" })
 vim.keymap.set({ "n" }, "<leader>lt", function()
 	vim.cmd("CsharpTemplate")
