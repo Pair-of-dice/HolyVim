@@ -35,16 +35,16 @@ return {
 		},
 	},
 	config = function()
-		vim.keymap.set("n", "gtj", function()
+		vim.keymap.set("n", "gbj", function()
 			vim.cmd("Treewalker Down")
 		end, { desc = "Treejump Down" })
-		vim.keymap.set("n", "gtk", function()
+		vim.keymap.set("n", "gbk", function()
 			vim.cmd("Treewalker Up")
 		end, { desc = "Treejump Up" })
-		vim.keymap.set("n", "gtl", function()
+		vim.keymap.set("n", "gbl", function()
 			vim.cmd("Treewalker Right")
 		end, { desc = "Treejump Right" })
-		vim.keymap.set("n", "gth", function()
+		vim.keymap.set("n", "gbh", function()
 			vim.cmd("Treewalker Left")
 		end, { desc = "Treejump Left" })
 	end,

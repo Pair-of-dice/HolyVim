@@ -804,12 +804,6 @@ vim.cmd([[set completeopt+=menuone,noselect,popup,preinsert]])
 -- })
 --}}}
 --Custom keybinds{{{
-vim.keymap.set({ "i", "n" }, "<C-p>", function()
-	vim.cmd("tabprevious")
-end)
-vim.keymap.set({ "i", "n" }, "<C-n>", function()
-	vim.cmd("tabnext")
-end)
 vim.keymap.set({ "n" }, "<leader>s", function()
 	vim.cmd("split")
 	vim.cmd("terminal")
