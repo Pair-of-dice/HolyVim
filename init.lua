@@ -8,6 +8,9 @@ vim.acd = true
 vim.g.mapleader = ","
 vim.g.maplocalleader = "\\"
 vim.o.foldmethod = "syntax"
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 
 --seems to not work.
 -- [[ Setting options ]] See `:h vim.o`
@@ -801,7 +804,6 @@ vim.cmd([[set completeopt+=menuone,noselect,popup,preinsert]])
 -- })
 --}}}
 --Custom keybinds{{{
-
 vim.keymap.set({ "i", "n" }, "<C-p>", function()
 	vim.cmd("tabprevious")
 end)
