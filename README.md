@@ -83,6 +83,9 @@ NVIM_APPNAME=Pair-of-dice/HolyVim/ nvim
 ### syntax
 
 + [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
+### utility
+
++ [kevinhwang91/nvim-ufo](https://dotfyle.com/plugins/kevinhwang91/nvim-ufo)
 ## Language Servers
 
 + clangd
