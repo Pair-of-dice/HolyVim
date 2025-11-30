@@ -7,7 +7,7 @@
 vim.acd = true
 vim.g.mapleader = ","
 vim.g.maplocalleader = "\\"
-vim.o.foldmethod = "marker"
+vim.o.foldmethod = "syntax"
 
 --seems to not work.
 -- [[ Setting options ]] See `:h vim.o`
