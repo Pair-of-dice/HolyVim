@@ -808,7 +808,7 @@ vim.keymap.set({ "n" }, "<leader>s", function()
 	vim.cmd("split")
 	vim.cmd("terminal")
 end)
-vim.keymap.set({ "n" }, "<leader>d", function()
+vim.keymap.set({ "n" }, "<leader>d+", function()
 	vim.cmd("lua vim.diagnostic.setloclist()")
 end)
 --}}}
