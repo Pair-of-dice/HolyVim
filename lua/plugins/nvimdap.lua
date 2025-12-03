@@ -1,6 +1,25 @@
 return {
 	"mfussenegger/nvim-dap",
 	dependencies = { "theHamsta/nvim-dap-virtual-text" },
+	cmd = {
+		"DapVirtualTextEnable",
+		"DapVirtualTextToggle",
+		"DapNew",
+		"DapEval",
+		"DapPause",
+		"DapShowLog",
+		"DapStepOut",
+		"DapContinue",
+		"DapStepInto",
+		"DapStepOver",
+		"DapTerminate",
+		"DapDisconnect",
+		"DapToggleRepl",
+		"DapSetLogLevel",
+		"DapRestartFrame",
+		"DapClearBreakpoints",
+		"DapToggleBreakpoint",
+	},
 	config = function()
 		--Dap customisation{{{
 		local dap = require("dap")

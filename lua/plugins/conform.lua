@@ -21,9 +21,13 @@ return {
 				python = { "black" },
 			},
 		})
-		vim.keymap.set({ "n", "i" }, "<C-A-f>", function()
-			vim.cmd("lua require('conform').format()")
-		end)
 		--}}}
 	end,
+	keys = {
+		{
+			"<leader>f",
+			"<cmd>lua require('conform').format()<cr>",
+			desc = "Format file",
+		},
+	},
 }

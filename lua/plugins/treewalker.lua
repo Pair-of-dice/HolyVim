@@ -34,18 +34,26 @@ return {
 			jumplist = true,
 		},
 	},
-	config = function()
-		vim.keymap.set("n", "gbj", function()
-			vim.cmd("Treewalker Down")
-		end, { desc = "Treejump Down" })
-		vim.keymap.set("n", "gbk", function()
-			vim.cmd("Treewalker Up")
-		end, { desc = "Treejump Up" })
-		vim.keymap.set("n", "gbl", function()
-			vim.cmd("Treewalker Right")
-		end, { desc = "Treejump Right" })
-		vim.keymap.set("n", "gbh", function()
-			vim.cmd("Treewalker Left")
-		end, { desc = "Treejump Left" })
-	end,
+	keys = {
+		{
+			"gbk",
+			"<cmd>Treewalker Up<cr>",
+			desc = "Treejump up",
+		},
+		{
+			"gbh",
+			"<cmd>Treewalker Left<cr>",
+			desc = "Treejump left",
+		},
+		{
+			"gbl",
+			"<cmd>Treewalker Right<cr>",
+			desc = "Treejump right",
+		},
+		{
+			"gbj",
+			"<cmd>Treewalker Down<cr>",
+			desc = "Treejump down",
+		},
+	},
 }
