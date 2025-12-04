@@ -42,14 +42,6 @@ return {
 						action = "Lazy update",
 						key = "u",
 					},
-					{
-						icon = " ",
-						icon_hl = "@DiffText",
-						desc = "Files",
-						group = "DiffText",
-						action = "Telescope find_files",
-						key = "f",
-					},
 				},
 			},
 			hide = {

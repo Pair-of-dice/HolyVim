@@ -8,8 +8,6 @@ vim.acd = true
 vim.g.mapleader = ","
 vim.g.maplocalleader = "\\"
 vim.o.foldmethod = "syntax"
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 --seems to not work.
@@ -72,7 +70,7 @@ vim.keymap.set({ "n" }, "<A-l>", "<C-w>l")
 
 -- For example, to add the 'nohlsearch' package to automatically turn off search highlighting after
 -- 'updatetime' and when going to insert mode
-vim.cmd("packadd! nohlsearch")
+vim.cmd("packadd nohlsearch")
 --}}}
 --Autocommands{{{
 -- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
@@ -814,4 +812,4 @@ end)
 --}}}
 --Set colourscheme{{{
 vim.cmd.colorscheme("Alienocean")
---}}`
+--}}}
