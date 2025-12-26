@@ -1,6 +1,6 @@
 return {
 	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
+	event = "BufReadPre",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
@@ -41,8 +41,9 @@ return {
 			}),
 		})
 
-		-- To use git you need to install the in petertriho/cmp-git and uncomment lines below
-		-- Set configuration for specific filetype.
+		-- To use git you need to install the in petertriho/cmp-git and
+		-- uncomment lines below Set configuration for specific
+		-- filetype.
 		--[[ cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
       { name = 'git' },

@@ -20,6 +20,7 @@ logo = string.rep("\n", 2) .. logo .. "\n\n"
 
 return {
 	"nvimdev/dashboard-nvim",
+	priority = 1,
 	event = "VimEnter",
 	config = function()
 		vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#BD0042" })

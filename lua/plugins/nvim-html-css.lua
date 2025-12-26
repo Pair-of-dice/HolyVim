@@ -1,8 +1,8 @@
 return {
 	"Jezda1337/nvim-html-css",
+	enabled = false,
 	dependencies = { "hrsh7th/nvim-cmp", "nvim-treesitter/nvim-treesitter" }, -- Use this if you're using nvim-cmp
 	-- dependencies = { "saghen/blink.cmp", "nvim-treesitter/nvim-treesitter" }, -- Use this if you're using blink.cmp
-	lazy = true, --This disables this slow plugin
 	opts = {
 		enable_on = { -- Example file types
 			"html",

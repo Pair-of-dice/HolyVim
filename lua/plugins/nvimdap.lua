@@ -61,6 +61,41 @@ return {
 			virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
 			-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
 		})
+
+		dap.adapters.coreclr = {
+			type = "executable",
+			command = "/home/paradise/.local/share/nvim/mason/bin/netcoredbg",
+			args = { "--interpreter=vscode" },
+		}
+		dap.configurations.cs = {
+			{
+				type = "coreclr",
+				name = "launch - netcoredbg",
+				request = "launch",
+				csexec = ("/usr/bin/dotnet run" .. vim.fn.getcwd()),
+				program = function()
+					return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+				end,
+			},
+		}
+		dap.configurations.java = {
+			{
+				-- You need to extend the classPath to list your dependencies.
+				-- `nvim-jdtls` would automatically add the `classPaths` property if it is missing
+				classPaths = {},
+
+				-- If using multi-module projects, remove otherwise.
+				--projectName = "yourProjectName",
+
+				javaExec = "/usr/bin/java",
+
+				-- If using the JDK9+ module system, this needs to be extended
+				-- `nvim-jdtls` would automatically populate this property
+				modulePaths = {},
+				request = "launch",
+				type = "java",
+			},
+		}
 		--}}}
 	end,
 }

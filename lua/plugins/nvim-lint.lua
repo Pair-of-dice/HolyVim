@@ -3,6 +3,7 @@
 return {
 	lazy = true,
 	"mfussenegger/nvim-lint",
+	event = "BufWritePre",
 	config = function()
 		require("lint").linters_by_ft = {
 			yaml = { "yamllint" },

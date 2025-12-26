@@ -2,29 +2,24 @@ return {
 	"nvim-telescope/telescope.nvim",
 	tag = "0.1.8",
 	dependencies = { "nvim-lua/plenary.nvim" },
-	config = function()
-		-- Telescope config and setup{{{
-		local telescope = require("telescope")
-		telescope.setup({
-			defaults = {
-				-- ...
+	opts = {
+		defaults = {
+			-- ...
+		},
+		pickers = {
+			find_files = {
+				theme = "ivy",
+				hidden = "true",
 			},
-			pickers = {
-				find_files = {
-					theme = "ivy",
-					hidden = "true",
-				},
-				live_grep = {
-					theme = "ivy",
-					hidden = "true",
-				},
+			live_grep = {
+				theme = "ivy",
+				hidden = "true",
 			},
-			extensions = {
-				-- ...
-			},
-		})
-		--}}}
-	end,
+		},
+		extensions = {
+			-- ...
+		},
+	},
 	keys = {
 		{
 			"<leader>tf",

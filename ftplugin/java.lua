@@ -18,24 +18,6 @@ for _, java_test_jar in ipairs(java_test_bundles) do
 	end
 end
 local dap = require("dap")
-dap.configurations.java = {
-	{
-		-- You need to extend the classPath to list your dependencies.
-		-- `nvim-jdtls` would automatically add the `classPaths` property if it is missing
-		classPaths = {},
-
-		-- If using multi-module projects, remove otherwise.
-		--projectName = "yourProjectName",
-
-		javaExec = "/usr/bin/java",
-
-		-- If using the JDK9+ module system, this needs to be extended
-		-- `nvim-jdtls` would automatically populate this property
-		modulePaths = {},
-		request = "launch",
-		type = "java",
-	},
-}
 --}}}
 --jdtls langauge server config{{{
 local config = {

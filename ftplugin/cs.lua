@@ -1,23 +1,3 @@
---Debugger{{{
-local dap = require("dap")
-
-dap.adapters.coreclr = {
-	type = "executable",
-	command = "/home/paradise/.local/share/nvim/mason/bin/netcoredbg",
-	args = { "--interpreter=vscode" },
-}
-dap.configurations.cs = {
-	{
-		type = "coreclr",
-		name = "launch - netcoredbg",
-		request = "launch",
-		csexec = ("/usr/bin/dotnet run" .. vim.fn.getcwd()),
-		program = function()
-			return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
-		end,
-	},
-}
---}}}
 --Dotnet and csharp keybinds and commands{{{
 vim.api.nvim_create_user_command("Dotnetrun", function()
 	vim.cmd("w")
@@ -36,5 +16,5 @@ vim.keymap.set({ "n" }, "<leader>lt", function()
 end, { desc = "Auto-boilerplate" })
 vim.keymap.set({ "n" }, "<leader>lf", function()
 	vim.cmd("Roslyn restart")
-end,{ desc = "Restart Roslyn" })
+end, { desc = "Restart Roslyn" })
 --}}}
