@@ -4,7 +4,7 @@ return {
 	cmd = "Trouble",
 	keys = {
 		{
-			"<leader>dt",
+			"<leader>dd",
 			"<cmd>Trouble diagnostics toggle<cr>",
 			desc = "Diagnostics (Trouble)",
 		},
@@ -14,12 +14,12 @@ return {
 			desc = "Buffer Diagnostics (Trouble)",
 		},
 		{
-			"<leader>st",
+			"<leader>ds",
 			"<cmd>Trouble symbols toggle focus=false<cr>",
 			desc = "Symbols (Trouble)",
 		},
 		{
-			"<leader>sh",
+			"<leader>dr",
 			"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
 			desc = "LSP Definitions / references / ... (Trouble)",
 		},

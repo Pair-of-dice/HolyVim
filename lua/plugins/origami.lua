@@ -1,5 +1,6 @@
 return {
 	"chrisgrieser/nvim-origami",
+	event = "BufReadPre",
 	opts = {
 		useLspFoldsWithTreesitterFallback = true,
 		pauseFoldsOnSearch = true,

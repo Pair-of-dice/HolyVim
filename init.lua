@@ -9,6 +9,7 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = "\\"
 vim.o.foldmethod = "syntax"
 vim.o.foldenable = true
+vim.o.spelllang = "en_gb"
 
 --seems to not work.
 -- [[ Setting options ]] See `:h vim.o`
@@ -71,6 +72,7 @@ vim.keymap.set({ "n" }, "<A-l>", "<C-w>l")
 -- For example, to add the 'nohlsearch' package to automatically turn off search highlighting after
 -- 'updatetime' and when going to insert mode
 vim.cmd("packadd nohlsearch")
+vim.cmd("packadd nohlsearch")
 --}}}
 --Autocommands{{{
 -- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
@@ -83,13 +85,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.hl.on_yank()
 	end,
 })
--- Doesn't work in the plugin's file, I don't know why and don't care.
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	callback = function()
-		require("lint").try_lint()
-	end,
-})
---}}}
 --Create user commands{{{
 -- See `:h nvim_create_user_command()` and `:h user-commands`
 -- Create a command `:GitBlameLine` that print the git blame for the current line
@@ -111,7 +106,6 @@ vim.lsp.enable("clangd")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("markdown_oxide")
 --vim.lsp.enable('jsonls')
-vim.lsp.enable("pylsp")
 vim.lsp.enable("zls")
 vim.lsp.enable("tombi")
 vim.lsp.enable("html")
@@ -119,6 +113,7 @@ vim.lsp.enable("css_variables")
 vim.lsp.enable("cssls")
 vim.lsp.enable("biome")
 vim.lsp.enable("ts_ls")
+vim.lsp.enable("ty")
 --vim.lsp.enable("jdtls") The config has been commented, it is in ftplugin at the moment.
 -- vim.lsp.enable("roslyn_ls") I'm using the roslyn plugin instead, use this as a fallback
 vim.lsp.enable("yamlls")
@@ -759,27 +754,11 @@ vim.lsp.config("yamlls", {
 	capabilities = cmpCapabilities,
 })
 --}}}
---Python language server(pylsp){{{
-vim.lsp.config("pylsp", {
-	cmd = { "pylsp" },
+--Ty
+vim.lsp.config("ty", {
+	cmd = { "ty", "server" },
 	filetypes = { "python" },
-	root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git" },
-	settings = {
-		pylsp = {
-			plugins = {
-				--Configure plugins here
-				pylint = {
-					enabled = true,
-				},
-				black = {
-					enabled = true,
-				},
-				yapf = {
-					enabled = false,
-				},
-			},
-		},
-	},
+	root_markers = { "ty.toml", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
 	capabilities = cmpCapabilities,
 })
 --}}}

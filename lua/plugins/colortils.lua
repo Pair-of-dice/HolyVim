@@ -3,8 +3,12 @@ return {
 	cmd = "Colortils",
 	config = function()
 		require("colortils").setup()
-		vim.keymap.set("n", "<leader>ct", function()
-			vim.cmd("Colortils")
-		end, { desc = "color utils" })
 	end,
+	keys = {
+		{
+			"<leader>ct",
+			"<cmd>Colortils<cr>",
+			"Colortils",
+		},
+	},
 }
