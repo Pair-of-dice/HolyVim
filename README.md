@@ -4,10 +4,9 @@
 <a href="https://dotfyle.com/Pair-of-dice/holyvim"><img src="https://dotfyle.com/Pair-of-dice/holyvim/badges/leaderkey?style=flat" /></a>
 <a href="https://dotfyle.com/Pair-of-dice/holyvim"><img src="https://dotfyle.com/Pair-of-dice/holyvim/badges/plugin-manager?style=flat" /></a>
 
-
 ## Install Instructions
 
- > Install requires Neovim 0.9+. Always review the code before installing a configuration.
+> Install requires Neovim 0.9+. Always review the code before installing a configuration.
 
 Clone the repository and install the plugins:
 
@@ -23,88 +22,120 @@ NVIM_APPNAME=Pair-of-dice/HolyVim/ nvim
 
 ## Plugins
 
+### code-runner
+
+- [michaelb/sniprun](https://dotfyle.com/plugins/michaelb/sniprun)
+
 ### color
 
-+ [catgoose/nvim-colorizer.lua](https://dotfyle.com/plugins/catgoose/nvim-colorizer.lua)
-+ [max397574/colortils.nvim](https://dotfyle.com/plugins/max397574/colortils.nvim)
+- [catgoose/nvim-colorizer.lua](https://dotfyle.com/plugins/catgoose/nvim-colorizer.lua)
+- [max397574/colortils.nvim](https://dotfyle.com/plugins/max397574/colortils.nvim)
+
 ### completion
 
-+ [hrsh7th/nvim-cmp](https://dotfyle.com/plugins/hrsh7th/nvim-cmp)
+- [saghen/blink.cmp](https://dotfyle.com/plugins/saghen/blink.cmp)
+- [hrsh7th/nvim-cmp](https://dotfyle.com/plugins/hrsh7th/nvim-cmp)
+
 ### debugging
 
-+ [theHamsta/nvim-dap-virtual-text](https://dotfyle.com/plugins/theHamsta/nvim-dap-virtual-text)
-+ [mfussenegger/nvim-dap](https://dotfyle.com/plugins/mfussenegger/nvim-dap)
+- [theHamsta/nvim-dap-virtual-text](https://dotfyle.com/plugins/theHamsta/nvim-dap-virtual-text)
+- [mfussenegger/nvim-dap](https://dotfyle.com/plugins/mfussenegger/nvim-dap)
+
+### diagnostics
+
+- [folke/trouble.nvim](https://dotfyle.com/plugins/folke/trouble.nvim)
+
 ### editing-support
 
-+ [aaronik/treewalker.nvim](https://dotfyle.com/plugins/aaronik/treewalker.nvim)
+- [folke/snacks.nvim](https://dotfyle.com/plugins/folke/snacks.nvim)
+- [aaronik/treewalker.nvim](https://dotfyle.com/plugins/aaronik/treewalker.nvim)
+
 ### file-explorer
 
-+ [is0n/fm-nvim](https://dotfyle.com/plugins/is0n/fm-nvim)
+- [is0n/fm-nvim](https://dotfyle.com/plugins/is0n/fm-nvim)
+
 ### formatting
 
-+ [stevearc/conform.nvim](https://dotfyle.com/plugins/stevearc/conform.nvim)
+- [stevearc/conform.nvim](https://dotfyle.com/plugins/stevearc/conform.nvim)
+
 ### fuzzy-finder
 
-+ [nvim-telescope/telescope.nvim](https://dotfyle.com/plugins/nvim-telescope/telescope.nvim)
+- [nvim-telescope/telescope.nvim](https://dotfyle.com/plugins/nvim-telescope/telescope.nvim)
+
 ### git
 
-+ [kdheepak/lazygit.nvim](https://dotfyle.com/plugins/kdheepak/lazygit.nvim)
+- [kdheepak/lazygit.nvim](https://dotfyle.com/plugins/kdheepak/lazygit.nvim)
+
+### github
+
+- [pwntester/octo.nvim](https://dotfyle.com/plugins/pwntester/octo.nvim)
+
 ### icon
 
-+ [nvim-tree/nvim-web-devicons](https://dotfyle.com/plugins/nvim-tree/nvim-web-devicons)
+- [nvim-tree/nvim-web-devicons](https://dotfyle.com/plugins/nvim-tree/nvim-web-devicons)
+
 ### keybinding
 
-+ [folke/which-key.nvim](https://dotfyle.com/plugins/folke/which-key.nvim)
+- [folke/which-key.nvim](https://dotfyle.com/plugins/folke/which-key.nvim)
+
 ### lsp
 
-+ [mfussenegger/nvim-jdtls](https://dotfyle.com/plugins/mfussenegger/nvim-jdtls)
-+ [mfussenegger/nvim-lint](https://dotfyle.com/plugins/mfussenegger/nvim-lint)
-+ [romus204/referencer.nvim](https://dotfyle.com/plugins/romus204/referencer.nvim)
-+ [neovim/nvim-lspconfig](https://dotfyle.com/plugins/neovim/nvim-lspconfig)
-+ [seblyng/roslyn.nvim](https://github.com/seblyng/roslyn.nvim)
+- [seblyng/roslyn.nvim](https://dotfyle.com/plugins/seblyng/roslyn.nvim)
+- [mfussenegger/nvim-lint](https://dotfyle.com/plugins/mfussenegger/nvim-lint)
+- [neovim/nvim-lspconfig](https://dotfyle.com/plugins/neovim/nvim-lspconfig)
+- [mfussenegger/nvim-jdtls](https://dotfyle.com/plugins/mfussenegger/nvim-jdtls)
+
 ### motion
 
-+ [HawkinsT/pathfinder.nvim](https://dotfyle.com/plugins/HawkinsT/pathfinder.nvim)
+- [HawkinsT/pathfinder.nvim](https://dotfyle.com/plugins/HawkinsT/pathfinder.nvim)
+
 ### nvim-dev
 
-+ [nvim-lua/plenary.nvim](https://dotfyle.com/plugins/nvim-lua/plenary.nvim)
+- [nvim-lua/plenary.nvim](https://dotfyle.com/plugins/nvim-lua/plenary.nvim)
+
 ### plugin-manager
 
-+ [folke/lazy.nvim](https://dotfyle.com/plugins/folke/lazy.nvim)
+- [folke/lazy.nvim](https://dotfyle.com/plugins/folke/lazy.nvim)
+
 ### search
 
-+ [MagicDuck/grug-far.nvim](https://dotfyle.com/plugins/MagicDuck/grug-far.nvim)
+- [MagicDuck/grug-far.nvim](https://dotfyle.com/plugins/MagicDuck/grug-far.nvim)
+
 ### snippet
 
-+ [L3MON4D3/LuaSnip](https://dotfyle.com/plugins/L3MON4D3/LuaSnip)
-+ [rafamadriz/friendly-snippets](https://dotfyle.com/plugins/rafamadriz/friendly-snippets)
+- [L3MON4D3/LuaSnip](https://dotfyle.com/plugins/L3MON4D3/LuaSnip)
+- [rafamadriz/friendly-snippets](https://dotfyle.com/plugins/rafamadriz/friendly-snippets)
+
 ### startup
 
-+ [nvimdev/dashboard-nvim](https://dotfyle.com/plugins/nvimdev/dashboard-nvim)
+- [nvimdev/dashboard-nvim](https://dotfyle.com/plugins/nvimdev/dashboard-nvim)
+
 ### statusline
 
-+ [nvim-lualine/lualine.nvim](https://dotfyle.com/plugins/nvim-lualine/lualine.nvim)
+- [nvim-lualine/lualine.nvim](https://dotfyle.com/plugins/nvim-lualine/lualine.nvim)
+
 ### syntax
 
-+ [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
+- [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
+
 ### utility
 
-+ [kevinhwang91/nvim-ufo](https://dotfyle.com/plugins/kevinhwang91/nvim-ufo)
+- [chrisgrieser/nvim-origami](https://dotfyle.com/plugins/chrisgrieser/nvim-origami)
+
 ## Language Servers
 
-+ roslyn
-+ biome
-+ ts_ls
-+ tombi
-+ clangd
-+ cssls
-+ html
-+ jdtls
-+ jsonls
-+ lua_ls
-+ pylsp
-+ yamlls
-+ zls
-
+- roslyn
+- biome
+- ts_ls
+- tombi
+- clangd
+- cssls
+- html
+- jdtls
+- jsonls
+- lua_ls
+- ty
+- yamlls
+- zls
 
 This readme was generated by [Dotfyle](https://dotfyle.com) Thanks Dotfyle!
