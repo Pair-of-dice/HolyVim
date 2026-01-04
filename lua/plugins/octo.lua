@@ -1,6 +1,7 @@
 return {
 	"pwntester/octo.nvim",
 	cmd = "Octo",
+	enabled = false,
 	opts = {
 		-- or "fzf-lua" or "snacks" or "default"
 		picker = "telescope",

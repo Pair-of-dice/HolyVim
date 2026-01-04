@@ -14,7 +14,7 @@ return {
 			toml = { "tombi" },
 			zig = { "zigfmt" },
 			yaml = { "yamlfmt" },
-			python = { "black" },
+			python = { "ruff_format" },
 		},
 	},
 	init = function()

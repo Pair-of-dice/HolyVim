@@ -2,7 +2,7 @@ return {
 	"chrisgrieser/nvim-origami",
 	event = "BufReadPre",
 	opts = {
-		useLspFoldsWithTreesitterFallback = true,
+		--useLspFoldsWithTreesitterFallback = true,
 		pauseFoldsOnSearch = true,
 		foldtext = {
 			enabled = true,
