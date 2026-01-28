@@ -1,6 +1,5 @@
 --Dotnet and csharp keybinds and commands{{{
 vim.api.nvim_create_user_command("Dotnetrun", function()
-	vim.cmd("w")
 	vim.cmd("split")
 	vim.cmd("terminal dotnet run")
 end, { desc = "Run the current Dotnet project" })

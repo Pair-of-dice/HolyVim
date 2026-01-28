@@ -4,26 +4,25 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			cpp = { "clang-format" },
-			cs = { "clang-format" },
+			cs = { lsp_format = "prefer" },
 			c = { "clang-format" },
 			java = { "clang-format" },
 			css = { "biome" },
 			javascript = { "biome" },
-			html = { "htmlbeautifier" },
+			html = { lsp_format = "prefer"},
 			markdown = { "mdformat" },
 			toml = { "tombi" },
 			zig = { "zigfmt" },
 			yaml = { "yamlfmt" },
 			python = { "ruff_format" },
+			sh = {"shfmt"},
+			bash = {"shfmt"},
+			format_on_save = {
+				timeout_ms = 500,
+				lsp_format = "fallback",
+			},
 		},
 	},
-	init = function()
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			callback = function()
-				require("conform").format()
-			end,
-		})
-	end,
 	keys = {
 		{
 			"<leader>f",

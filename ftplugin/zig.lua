@@ -1,17 +1,14 @@
 vim.api.nvim_create_user_command("Zigrun", function()
 	local filename = vim.api.nvim_buf_get_name(0)
-	vim.cmd("w")
 	print(vim.fn.system({ "zig", "run", filename }))
 end, { desc = "Run the current Zig buffer" })
 
 vim.api.nvim_create_user_command("Zigbuild", function()
-	vim.cmd("w")
 	print(vim.fn.system({ "zig", "build" }))
 end, { desc = "Compile the Zig project" })
 
 vim.api.nvim_create_user_command("Zigtest", function()
 	local filename = vim.api.nvim_buf_get_name(0)
-	vim.cmd("w")
 	print(vim.fn.system({ "zig", "test", filename }))
 end, { desc = "Test the current Zig buffer" })
 

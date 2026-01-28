@@ -118,13 +118,14 @@ vim.lsp.enable("ty")
 -- vim.lsp.enable("roslyn_ls") I'm using the roslyn plugin instead, use this as a fallback
 vim.lsp.enable("yamlls")
 vim.lsp.enable("yamllint")
+vim.lsp.enable("typos-lsp")
 
 -- Set up lspconfig.
 
 local cmpCapabilities = require("cmp_nvim_lsp").default_capabilities()
 
 --}}}
---Lua{{{
+--Lua{{
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
@@ -133,58 +134,30 @@ vim.lsp.config("lua_ls", {
 		".luarc.jsonc",
 		".luacheckrc",
 		".stylua.toml",
-		"stylua.toml",
-		"selene.toml",
-		"selene.yml",
 		".git",
 	},
-	on_init = function(client)
-		if client.workspace_folders then
-			local path = client.workspace_folders[1].name
-			if
-				path ~= vim.fn.stdpath("config")
-				and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
-			then
-				return
-			end
-		end
-
-		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-			runtime = {
-				-- Tell the language server which version of Lua you're using (most
-				-- likely LuaJIT in the case of Neovim)
-				version = "LuaJIT",
-				-- Tell the language server how to find Lua modules same way as Neovim
-				-- (see `:h lua-module-load`)
-				path = {
-					"lua/?.lua",
-					"lua/?/init.lua",
-				},
-			},
-			-- Make the server aware of Neovim runtime files
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME,
-					-- Depending on the usage, you might want to add additional paths
-					-- here.
-					-- '${3rd}/luv/library'
-					-- '${3rd}/busted/library'
-				},
-				-- Or pull in all of 'runtimepath'.
-				-- NOTE: this is a lot slower and will cause issues when working on
-				-- your own configuration.
-				-- See https://github.com/neovim/nvim-lspconfig/issues/3189
-				-- library = {
-				--   vim.api.nvim_get_runtime_file('', true),
-				-- }
-			},
-		})
-	end,
 	settings = {
-		Lua = {},
+		Lua = {
+			runtime = {
+				version = "Lua 5.3",
+				path = {
+					"?.lua",
+					"?/init.lua",
+					vim.fn.expand("~/.luarocks/share/lua/5.3/?.lua"),
+					vim.fn.expand("~/.luarocks/share/lua/5.3/?/init.lua"),
+					"/usr/share/5.3/?.lua",
+					"/usr/share/lua/5.3/?/init.lua",
+				},
+			},
+			workspace = {
+				library = {
+					vim.fn.expand("~/.luarocks/share/lua/5.3"),
+					"/usr/share/lua/5.3",
+					vim.env.VIMRUNTIME,
+				},
+			},
+		},
 	},
-	capabilities = cmpCapabilities,
 })
 --}}}
 --Clangd{{{
@@ -259,7 +232,7 @@ vim.lsp.config("html", {
 			css = true,
 			javascript = true,
 		},
-		provideFormatter = false,
+		provideFormatter = true,
 	},
 	root_markers = { "package.json", ".git" },
 	settings = {},
@@ -271,7 +244,7 @@ vim.lsp.config("css_variables", {
 	cmd = { "css-variables-language-server", "--stdio" },
 	filetypes = { "css", "scss", "less" },
 	root_markers = { ".git" },
-	settigs = {
+	settings = {
 		cssVariables = {
 			blacklistFolders = {
 				"**/.cache",
@@ -298,7 +271,7 @@ vim.lsp.config("cssls", {
 	cmd = { "vscode-css-language-server", "--stdio" },
 	filetypes = { "css", "scss", "less" },
 	init_options = {
-		provideFormatter = false,
+		provideFormatter = true,
 	},
 	root_markers = { "package.json", ".git" },
 	settings = {
@@ -762,6 +735,13 @@ vim.lsp.config("ty", {
 	capabilities = cmpCapabilities,
 })
 --}}}
+vim.lsp.config("typos-lsp", {
+	cmd = { "typos-lsp" },
+	root_markers = { "typos.toml", "_typos.toml", ".typos.toml", "pyproject.toml", "Cargo.toml" },
+	init_options = {
+		diagnosticSeverity = "Info",
+	},
+})
 --}}}
 --Set up builtin completion{{{
 vim.cmd([[set completeopt+=menuone,noselect,popup,preinsert]])
