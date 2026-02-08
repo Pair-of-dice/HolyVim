@@ -23,7 +23,7 @@ vim.o.number = true
 
 -- Use relative line numbers, so that it is easier to jump with j, k. This will affect the 'number'
 -- option above, see `:h number_relativenumber`
-vim.o.relativenumber = false
+vim.o.relativenumber = true
 
 -- Sync clipboard between OS and Neovim. Schedule the setting after `UiEnter` because it can
 -- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
@@ -105,7 +105,7 @@ require("mason").setup({ registries = { "github:crashdummyy/mason-registry", "gi
 vim.lsp.enable("clangd")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("markdown_oxide")
---vim.lsp.enable('jsonls')
+vim.lsp.enable("jsonls")
 vim.lsp.enable("zls")
 vim.lsp.enable("tombi")
 vim.lsp.enable("html")
@@ -153,7 +153,6 @@ vim.lsp.config("lua_ls", {
 				library = {
 					vim.fn.expand("~/.luarocks/share/lua/5.3"),
 					"/usr/share/lua/5.3",
-					vim.env.VIMRUNTIME,
 				},
 			},
 		},
@@ -742,6 +741,17 @@ vim.lsp.config("typos-lsp", {
 		diagnosticSeverity = "Info",
 	},
 })
+
+--Jsonls{{{
+vim.lsp.config("jsonls", {
+	cmd = { "vscode-json-language-server", "--stdio" },
+	filetypes = { "json", "jsonc" },
+	init_options = {
+		provideFormatter = false,
+	},
+	root_markers = { ".git" },
+})
+--}}}
 --}}}
 --Set up builtin completion{{{
 vim.cmd([[set completeopt+=menuone,noselect,popup,preinsert]])
